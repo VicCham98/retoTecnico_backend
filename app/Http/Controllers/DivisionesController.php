@@ -9,11 +9,39 @@ use Illuminate\Http\Request;
 
 class DivisionesController extends Controller
 {
+    private function switchColumn($value) {
+        switch ($value) {
+            case 'division': {
+                return "divisiones.div_nombre";
+            }
+            case 'divisionSup': {
+                return "division_superior.div_sup_nombre";
+            }
+            case 'colaboradores': {
+                return "divisiones.div_cantidad";
+            }
+            case 'nivel': {
+                return "divisiones.div_nivel";
+            }
+            case 'subDivision': {
+                return "divisiones.div_nombre";
+            }
+            case 'embajador': {
+                return "divisiones.div_embajador";
+            }
+            default:
+                return "divisiones.div_nombre";
+        }
+    }
+
     public function divisiones(Request $request){
         $pageSize = $request->pageSize;
+        $column = $this->switchColumn($request->column);
+        $search = '%'.$request->search.'%';
 
         $divisiones = DivisionesContent::where([
-            ['divisiones_content.div_estado', 'ACTIVO']
+            ['divisiones_content.div_estado', 'ACTIVO'],
+            [$column, 'like', $search]
         ])
         ->join('divisiones', 'divisiones.id', 'divisiones_content.divisiones_id')
         ->join('division_superior', 'division_superior.id', 'divisiones_content.division_superior_id')
