@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 
 class DivisionesController extends Controller
 {
-    public function divisiones(){
+    public function divisiones(Request $request){
+        $pageSize = $request->pageSize;
+
         $divisiones = DivisionesContent::where([])
         ->join('divisiones', 'divisiones.id', 'divisiones_content.divisiones_id')
         ->join('division_superior', 'division_superior.id', 'divisiones_content.division_superior_id')
@@ -22,7 +24,7 @@ class DivisionesController extends Controller
             'division_superior.div_sup_nombre as divisionSup',
             'division_superior.id as divisionSupId',
         )
-        ->get();
+        ->paginate($pageSize);
 
         foreach ($divisiones as $key => $value) {
             $divisiones[$key]['subDivision'] = SubDivisionContent::where([

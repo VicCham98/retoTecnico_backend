@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('div')->group(function () {
-    Route::get('/divisiones', 'DivisionesController@divisiones');
+    Route::post('/divisiones', 'DivisionesController@divisiones');
 });
 
