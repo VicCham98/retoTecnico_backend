@@ -19,6 +19,7 @@ class CreateDivisionTable extends Migration
             $table->integer('div_nivel');
             $table->integer('div_cantidad');
             $table->string('div_embajador');
+            $table->string('div_estado')->default('ACTIVO');
             $table->timestamps();
         });
     }

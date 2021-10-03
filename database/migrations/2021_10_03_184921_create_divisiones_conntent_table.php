@@ -17,6 +17,7 @@ class CreateDivisionesConntentTable extends Migration
             $table->bigIncrements('id');
             $table->integer('divisiones_id')->nullable();
             $table->integer('division_superior_id')->nullable();
+            $table->string('div_estado')->default('ACTIVO');
             $table->timestamps();
         });
     }
